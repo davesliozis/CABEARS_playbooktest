@@ -1376,9 +1376,9 @@ function submitAnswer() {
   }
 
   document.getElementById("btn-submit").style.display = "none";
-  document.getElementById("btn-next").style.display = "";
+  document.getElementById("btn-next").style.display = "inline-block";
   document.getElementById("btn-next").textContent =
-    current + 1 < questions.length ? "Next →" : "See Results";
+    current + 1 < questions.length ? "Next Question →" : "See Results";
 }
 
 function nextQuestion() {
