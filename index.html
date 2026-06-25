@@ -507,7 +507,7 @@
   <p class="start-info">
     Multiple-choice questions covering every section of the Bears playbook —
     key terms, offensive and defensive zones, forechecks, special teams,
-    zone diagrams, and team culture. One question at a time. Submit your answer to see if you're right.
+    zone diagrams, face-off plays, and team culture. One question at a time. Submit your answer to see if you're right.
   </p>
   <div class="topics-grid" id="topics-grid"></div>
   <button class="btn-start" onclick="startQuiz()">Start Quiz</button>
@@ -686,7 +686,7 @@ const QUESTIONS = [
   // ══════════════════════════════════════════════════════════
   {
     category: "Offensive Zone — Areas",
-    question: "The diagram below shows the four offensive zone areas. Which area is the HIGH SLOT — described as a dangerous scoring area that is highly defended?",
+    question: "The diagram below shows the four offensive zone areas (see playbook page 7). Which area is the HIGH SLOT — described as a dangerous scoring area that is highly defended?",
     diagram: `<svg class="rink-svg" viewBox="0 0 260 200" width="240" height="185" xmlns="http://www.w3.org/2000/svg">
       <!-- rink outline -->
       <rect x="10" y="10" width="240" height="180" rx="18" fill="#0d2240" stroke="#2a4a7a" stroke-width="2"/>
@@ -724,7 +724,7 @@ const QUESTIONS = [
   },
   {
     category: "Offensive Zone — Areas",
-    question: "According to the playbook's zone diagram, which player is responsible for defending Area A (High Slot)?",
+    question: "According to the playbook's zone diagram (see playbook page 7), which player is responsible for defending Area A (High Slot)?",
     options: [
       { text: "The strong side winger", correct: false },
       { text: "The center", correct: false },
@@ -820,7 +820,7 @@ const QUESTIONS = [
   },
   {
     category: "Zone Penetration",
-    question: "The diagram below shows a 3-on-2 rush. The 'Corridor' is the shaded zone between the blue line and the top of the offensive zone circles. When the corridor is NOT given, what does F3 do to create a 3D attack?",
+    question: "The diagram below shows a 3-on-2 rush (see playbook page 13). The 'Corridor' is the shaded zone between the blue line and the top of the offensive zone circles. When the corridor is NOT given, what does F3 do to create a 3D attack?",
     diagram: `<svg class="rink-svg" viewBox="0 0 260 220" width="240" height="205" xmlns="http://www.w3.org/2000/svg">
       <rect x="10" y="10" width="240" height="200" rx="18" fill="#0d2240" stroke="#2a4a7a" stroke-width="2"/>
       <!-- blue line -->
@@ -982,7 +982,7 @@ const QUESTIONS = [
   },
   {
     category: "Special Teams — Penalty Kill",
-    question: "According to the PK diagram for the PP Umbrella setup, what does the high Black D (penalty killer) cover?",
+    question: "According to the PK diagram for the PP Umbrella setup (see playbook page 26), what does the high Black D (penalty killer) cover?",
     options: [
       { text: "The crease area in front of the net", correct: false },
       { text: "Both the shooting lane AND the passing lane (intercept point)", correct: true },
@@ -1257,7 +1257,364 @@ const QUESTIONS = [
     ],
     explanation: "From the playbook's Hockey Essentials: 'Thoughts become words → Words become actions → Actions become habits → Habits become character → Character realizes your destiny.'", page: 2
   },
+
+  // ══════════════════════════════════════════════════════════
+  // FACE-OFFS
+  // ══════════════════════════════════════════════════════════
+
+  // ── LA Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'LA Draw' (offensive zone, 5-on-5 — see face-offs page 2), what does F1 do immediately after winning the puck to the inside?",
+    diagram: `<svg class="rink-svg" viewBox="0 0 320 180" width="300" height="169" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="316" height="176" rx="14" fill="#0d2240" stroke="#2a4a7a" stroke-width="1.5"/>
+      <rect x="260" y="60" width="50" height="60" rx="6" fill="none" stroke="#4a8aff" stroke-width="1"/>
+      <rect x="274" y="112" width="22" height="10" rx="2" fill="#222"/>
+      <circle cx="240" cy="68" r="18" fill="none" stroke="#7a3a3a" stroke-width="1.2"/>
+      <circle cx="240" cy="112" r="18" fill="none" stroke="#7a3a3a" stroke-width="1.2"/>
+      <circle cx="240" cy="90" r="3" fill="#7a3a3a"/>
+      <circle cx="230" cy="78" r="10" fill="#8B1A1A" stroke="#ff8080" stroke-width="1"/>
+      <text x="230" y="82" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">C</text>
+      <circle cx="248" cy="85" r="10" fill="#8B1A1A" stroke="#ff8080" stroke-width="1"/>
+      <text x="248" y="89" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">D1</text>
+      <circle cx="222" cy="90" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="222" y="94" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">F1</text>
+      <circle cx="230" cy="105" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="230" y="109" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">F2</text>
+      <circle cx="248" cy="68" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="248" y="72" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">D2</text>
+      <line x1="222" y1="90" x2="270" y2="82" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+      <line x1="230" y1="105" x2="268" y2="115" stroke="#4aff88" stroke-width="1.5" marker-end="url(#arr2)"/>
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#F5A623"/></marker>
+        <marker id="arr2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4aff88"/></marker>
+      </defs>
+      <text x="160" y="16" text-anchor="middle" fill="#4a7acc" font-family="Oswald,sans-serif" font-size="10" letter-spacing="1">LA DRAW — OFFENSIVE ZONE</text>
+    </svg>`,
+    options: [
+      { text: "Shoots immediately on net from where he receives the puck", correct: false },
+      { text: "Re-directs the puck to the far post while F2 rotates to the back post", correct: true },
+      { text: "Passes back to D1 for a point shot", correct: false },
+      { text: "Drives to the net and waits for a pass from C", correct: false },
+    ],
+    explanation: "LA Draw: F1 gets to the puck and re-directs it to the far post. F2 rotates off his coverage and goes for the back post. The Center should be a lefty on this side.", page: 2
+  },
+  {
+    category: "Face-Offs",
+    question: "What handedness is required of the Center on the 'LA Draw' in the offensive zone?",
+    options: [
+      { text: "Right-handed", correct: false },
+      { text: "Left-handed", correct: true },
+      { text: "Either hand works equally well", correct: false },
+      { text: "The playbook does not specify handedness for the center", correct: false },
+    ],
+    explanation: "The LA Draw specifies that the Center should be a lefty on this side — handedness affects the angle and effectiveness of the draw.", page: 2
+  },
+
+  // ── Quick Shot Draw ──
+  {
+    category: "Face-Offs",
+    question: "On the 'Quick Shot' draw (offensive zone, 5-on-5), what is D1's shooting condition?",
+    options: [
+      { text: "D1 always shoots immediately after winning the draw", correct: false },
+      { text: "D1 only shoots if the lane is open — never shoot into an attacking opponent", correct: true },
+      { text: "D1 holds the blue line and waits for F2 to screen the goalie first", correct: false },
+      { text: "D1 passes to D2 who takes the shot from the far side", correct: false },
+    ],
+    explanation: "Quick Shot draw: D1 must be a righty on this side and only takes a shot if the lane is open. He must NOT shoot into an attacking opponent. D2 plays safety and the center returns after the draw to play safety as well.", page: 2
+  },
+  {
+    category: "Face-Offs",
+    question: "In the 'Quick Shot' draw, what are F1 and F2's roles after the draw?",
+    options: [
+      { text: "F1 shoots immediately; F2 covers the point", correct: false },
+      { text: "F1 holds up his man; F2 goes to the net for the rebound", correct: true },
+      { text: "Both F1 and F2 crash the net immediately", correct: false },
+      { text: "F1 goes to the back post; F2 screens the goalie at the near post", correct: false },
+    ],
+    explanation: "Quick Shot draw: F1 must hold up his man (providing a screen/delay), while F2 goes to the net for the rebound after D1's shot.", page: 2
+  },
+
+  // ── Big Papa Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'Big Papa' draw (offensive zone — see face-offs page 3), what does the outside forward do immediately after winning the puck?",
+    diagram: `<svg class="rink-svg" viewBox="0 0 320 180" width="300" height="169" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="316" height="176" rx="14" fill="#0d2240" stroke="#2a4a7a" stroke-width="1.5"/>
+      <rect x="2" y="60" width="50" height="60" rx="6" fill="none" stroke="#4a8aff" stroke-width="1"/>
+      <rect x="16" y="112" width="22" height="10" rx="2" fill="#222"/>
+      <circle cx="80" cy="68" r="18" fill="none" stroke="#7a3a3a" stroke-width="1.2"/>
+      <circle cx="80" cy="112" r="18" fill="none" stroke="#7a3a3a" stroke-width="1.2"/>
+      <circle cx="80" cy="90" r="3" fill="#7a3a3a"/>
+      <circle cx="72" cy="65" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="72" y="69" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">F2</text>
+      <circle cx="90" cy="78" r="10" fill="#8B1A1A" stroke="#ff8080" stroke-width="1"/>
+      <text x="90" y="82" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">C</text>
+      <circle cx="95" cy="90" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="95" y="94" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">F2</text>
+      <circle cx="80" cy="103" r="10" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="80" y="107" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="9" font-weight="700">F1</text>
+      <circle cx="70" cy="90" r="10" fill="#8B1A1A" stroke="#ff8080" stroke-width="1"/>
+      <text x="70" y="94" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="8" font-weight="700">C→</text>
+      <line x1="95" y1="90" x2="115" y2="90" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <line x1="115" y1="90" x2="50" y2="90" stroke="#F5A623" stroke-width="1.5" marker-end="url(#arrB)"/>
+      <line x1="80" y1="103" x2="30" y2="100" stroke="#4aff88" stroke-width="1.5" marker-end="url(#arrB2)"/>
+      <defs>
+        <marker id="arrB" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#F5A623"/></marker>
+        <marker id="arrB2" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#4aff88"/></marker>
+      </defs>
+      <text x="160" y="16" text-anchor="middle" fill="#4a7acc" font-family="Oswald,sans-serif" font-size="10" letter-spacing="1">BIG PAPA DRAW — OFFENSIVE ZONE</text>
+    </svg>`,
+    options: [
+      { text: "Passes immediately to the Center who is cutting to the net", correct: false },
+      { text: "Skates the puck fast to the middle, selling a shot — then either shoots or passes to the Center for a one-timer", correct: true },
+      { text: "Dumps the puck deep in the corner and chases it", correct: false },
+      { text: "Passes back to D2 on the blue line for a point shot", correct: false },
+    ],
+    explanation: "Big Papa: the outside forward (F2) skates fast to the middle 'selling' a shot. If uncovered, he takes it. Most likely the opponent engages on F2, so the Center drops to the bottom of the circle, turns to face F2, and receives a one-timer pass.", page: 3
+  },
+  {
+    category: "Face-Offs",
+    question: "Why does the 'Big Papa' draw work against most opponents, according to the playbook?",
+    options: [
+      { text: "Most teams leave the blue line open after a face-off", correct: false },
+      { text: "Most teams forget to cover the center after a draw — the center goes to the bottom of the circle for a one-timer", correct: true },
+      { text: "The forward's speed makes it impossible for the defense to react in time", correct: false },
+      { text: "The draw direction fools the goalie into moving to the wrong side", correct: false },
+    ],
+    explanation: "Big Papa exploits a common opponent mistake: most teams will engage on F2 and forget to cover the center after the draw. The Center goes to the bottom of the circle and turns to face F2 for a one-timer opportunity.", page: 3
+  },
+
+  // ── Offensive Zone Lost Draw ──
+  {
+    category: "Face-Offs",
+    question: "When the Bears lose the draw in the offensive zone, what is F1's most important immediate responsibility?",
+    options: [
+      { text: "Chase the puck carrier aggressively into the corner", correct: false },
+      { text: "Quickly shut down the opponents' half-wall", correct: true },
+      { text: "Drop back to the blue line to prevent an odd-man rush", correct: false },
+      { text: "Screen the goalie in case the opponent takes a quick shot", correct: false },
+    ],
+    explanation: "Offensive Zone Lost Draw: the most important part is that F1 QUICKLY shuts down the opponents' half-wall. The Center chases the defense to go behind the net (but does not follow). Success is setting up in a 1-2-2 or engaging on the puck carrier.", page: 4
+  },
+  {
+    category: "Face-Offs",
+    question: "After losing an offensive zone draw, the Center chases the defense toward behind the net. What is the key restriction on the Center?",
+    options: [
+      { text: "The Center must not cross the blue line under any circumstances", correct: false },
+      { text: "The Center chases the defense toward the net but does NOT follow them behind it", correct: true },
+      { text: "The Center must immediately return to the face-off dot for a potential re-draw", correct: false },
+      { text: "The Center must stay in the slot in case the opponent mishandles the puck", correct: false },
+    ],
+    explanation: "Offensive Zone Lost Draw: the Center chases the defense to go behind the net, but does NOT follow. The goal is to set up in a 1-2-2 or engage on the puck carrier if possible.", page: 4
+  },
+
+  // ── Neutral Zone Lost Draw ──
+  {
+    category: "Face-Offs",
+    question: "After losing a neutral zone draw, what is the FIRST priority for forechecking, according to the playbook?",
+    options: [
+      { text: "Angle directly at the puck carrier and try to body-check them immediately", correct: false },
+      { text: "Always forecheck to the transitional passing lane FIRST, then angle out from there", correct: true },
+      { text: "Drop into a 1-2-2 trap and wait for the opponent to make a mistake", correct: false },
+      { text: "Have D2 pressure the puck carrier while forwards cover the wings", correct: false },
+    ],
+    explanation: "Neutral Zone Lost Draw: ALWAYS FORECHECK TO THE TRANSITIONAL PASSING LANE FIRST, then angle out from there. F1 fore-checks into the lane and steers the opponent defense out toward the wall. F2 lags behind and engages before the red line to avoid a dump.", page: 5
+  },
+  {
+    category: "Face-Offs",
+    question: "In the neutral zone lost draw, what does the Center do while the forwards forecheck?",
+    options: [
+      { text: "The Center leads the forecheck to apply pressure on the puck carrier", correct: false },
+      { text: "The Center stays with his center opponent — this cannot change regardless of the situation", correct: true },
+      { text: "The Center drops back to support the defensemen in their own zone", correct: false },
+      { text: "The Center skates to the far side wall to provide a passing outlet", correct: false },
+    ],
+    explanation: "Neutral Zone Lost Draw: The Center will STAY with his center opponent. This is consistent no matter what face-off dot in the neutral zone. The far forward angles aggressively while the strong side forward boxes out.", page: 5
+  },
+
+  // ── Defensive Zone Lost Draw ──
+  {
+    category: "Face-Offs",
+    question: "The playbook identifies the #1 key mistake Centers make on a defensive zone lost draw. What is it?",
+    options: [
+      { text: "Shooting the puck immediately instead of controlling it", correct: false },
+      { text: "Leaving his man — the Center CANNOT leave his man", correct: true },
+      { text: "Skating behind the net instead of staying in front", correct: false },
+      { text: "Trying to tie up the opposing center instead of getting to the puck", correct: false },
+    ],
+    explanation: "Defensive Zone Lost Draw key mistakes: #1 — Center leaves his man. This CANNOT happen. Stay with your man. #2 — Forwards don't know which D they have. Simply communicate which one you have and take him.", page: 6
+  },
+  {
+    category: "Face-Offs",
+    question: "The playbook gives forwards a simple three-step mindset for defensive zone face-offs. What is it?",
+    options: [
+      { text: "Gap up → angle → engage", correct: false },
+      { text: "Hold your man → win the puck → get open/screen goalie", correct: true },
+      { text: "Split the ice → take your D → cover the passing lane", correct: false },
+      { text: "Box out → forecheck → recover", correct: false },
+    ],
+    explanation: "The playbook states: 'If this is confusing, think this — hold your man → win the puck → get open/screen goalie. If you think this at all times, you will at least be ok.'", page: 6
+  },
+
+  // ── Hollywood Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'Hollywood Draw' (defensive zone win), why is it named 'Hollywood' according to the playbook?",
+    options: [
+      { text: "It was developed by an NHL team in Los Angeles", correct: false },
+      { text: "You have to act a little on this one — it requires deception to execute", correct: true },
+      { text: "It is the most visually impressive draw in the system", correct: false },
+      { text: "It was inspired by a famous hockey movie", correct: false },
+    ],
+    explanation: "'I renamed this draw because you have to act a little on this one.' D2 (must be a lefty) races behind the net, rotates in stride, and throws the puck to the strong side outside hashmark. F1 times this to pick it up with speed.", page: 7
+  },
+  {
+    category: "Face-Offs",
+    question: "In the 'Hollywood Draw', what is F2's specific job during the play?",
+    options: [
+      { text: "F2 goes to the net for a potential rebound or tip", correct: false },
+      { text: "F2 skates hard and fast across to open up the side he is leaving for the play to develop", correct: true },
+      { text: "F2 holds the blue line as a safety in case of a turnover", correct: false },
+      { text: "F2 screens the opponent's goalie while D2 makes his move", correct: false },
+    ],
+    explanation: "Hollywood Draw: F2 skates hard and fast across — his job is to open up the side he is leaving so the play can develop for F1. D1 skates fast to the opposite corner and yells for the puck (as a decoy), though he won't receive it.", page: 7
+  },
+  {
+    category: "Face-Offs",
+    question: "What is the key timing requirement for F1 on the 'Hollywood Draw', and what happens if F1 goes too soon?",
+    options: [
+      { text: "F1 must go at the same time as D2 — if too early, the pass will be behind him", correct: false },
+      { text: "F1 must time the play out to pick the puck up with speed — if he goes too soon, the play won't work", correct: true },
+      { text: "F1 must wait for D1 to yell before breaking — going too soon causes an icing", correct: false },
+      { text: "F1 goes as soon as the Center wins the draw — timing is not critical on this play", correct: false },
+    ],
+    explanation: "Hollywood Draw: F1 has been timing this out to pick the puck up with speed. 'If F1 goes too soon, the play won't work, if he learns to time it out, it works very well and ends up in a 2-1 if the team pinches on us.'", page: 7
+  },
+
+  // ── Slapper Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'Slapper Draw' (defensive zone win), what handedness is required of D2 and why?",
+    options: [
+      { text: "D2 must be right-handed for a better angle to the boards", correct: false },
+      { text: "D2 must be left-handed — to skate the puck close to the boards for better speed", correct: true },
+      { text: "D2 can be either hand, as long as he receives the puck on his forehand", correct: false },
+      { text: "D2 must be right-handed so he can shoot across his body to the far side", correct: false },
+    ],
+    explanation: "Slapper Draw: D2 must be a lefty. He skates the puck close to the boards for better speed. If the opponent figures it out, the Bears can send F1 to the half-wall quickly and do it lower into their own zone.", page: 7
+  },
+
+  // ── 6-on-5 Scoring Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the '6-on-5 Scoring Draw' (neutral zone), what does F3 do AFTER making his play?",
+    options: [
+      { text: "F3 joins the rush and drives hard to the net for a scoring chance", correct: false },
+      { text: "F3 stays as a high forward in zone after making his play", correct: true },
+      { text: "F3 returns to the bench immediately for a line change", correct: false },
+      { text: "F3 drops back to the blue line as a defensive safety", correct: false },
+    ],
+    explanation: "6-on-5 Scoring Draw: D1 finds F3 wide who draws the opponent defenseman to the outside. F3 passes to F2 who skates between the defensemen to draw them away from the middle, then finds C or F1 at the middle/far post. After F3 makes his play, he STAYS as a high forward in zone.", page: 8
+  },
+  {
+    category: "Face-Offs",
+    question: "In the '6-on-5 Scoring Draw', what is F2's role after receiving the pass from F3?",
+    options: [
+      { text: "F2 shoots immediately from wherever he receives the pass", correct: false },
+      { text: "F2 keeps skating straight down to draw the opponent defense away from the middle, then finds C or F1 at the post", correct: true },
+      { text: "F2 passes back to D1 who activates from the point for a slap shot", correct: false },
+      { text: "F2 drives wide and sets up behind the net for a wraparound", correct: false },
+    ],
+    explanation: "6-on-5 Scoring Draw: F2 skates between the opponent defensemen and keeps skating straight down to draw the defense away from the middle in panic — then finds either the C or F1 in the middle/far post.", page: 8
+  },
+
+  // ── 3 Point Draw ──
+  {
+    category: "Face-Offs",
+    question: "What is the purpose of D1's movement in the '3 Point Draw' (neutral zone)?",
+    options: [
+      { text: "D1 pinches aggressively to win a puck battle in the corner", correct: false },
+      { text: "D1 moves deep into his own zone to draw the opposing forecheck apart, creating space for D2", correct: true },
+      { text: "D1 holds the blue line and provides a target for the initial outlet pass", correct: false },
+      { text: "D1 sets a pick on the opposing center so the Center can win the draw cleanly", correct: false },
+    ],
+    explanation: "3 Point Draw: D1 moves DEEP into his own zone to draw the fore-check of the other team apart. D2 then gets open to the outside and uses the boards or open lane to move the puck up the zone. F1 must be patient and provide depth and width.", page: 9
+  },
+
+  // ── Wide Out Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'Wide Out' draw (neutral zone win), what role does the Center take on during the resulting rush?",
+    options: [
+      { text: "The Center leads the rush up the middle as the primary puck carrier", correct: false },
+      { text: "The Center stays behind and becomes F3 on the rush", correct: true },
+      { text: "The Center immediately returns to the defensive zone as a safety", correct: false },
+      { text: "The Center goes to the net and prepares for a cross-ice pass from the wing", correct: false },
+    ],
+    explanation: "Wide Out draw: the Center needs to stay behind on this one and become F3 on the rush. F1 breaks between the opponent D with relentless speed. F2 catches the puck and skates hard down the wall to force the opponent to forecheck outside. D1 should be a lefty for the first pass.", page: 10
+  },
+  {
+    category: "Face-Offs",
+    question: "The 'Wide Out' draw has a unique flexibility mentioned in the playbook. What is it?",
+    options: [
+      { text: "It can be used with either 5 or 6 skaters on the ice", correct: false },
+      { text: "You can execute this draw on any circle on the ice", correct: true },
+      { text: "Either the Center or a forward can take the draw depending on matchups", correct: false },
+      { text: "It works on won draws AND lost draws with the same movement", correct: false },
+    ],
+    explanation: "The playbook explicitly states: 'You can do this draw on any circle.' This makes the Wide Out a versatile draw the team can deploy in any zone.", page: 10
+  },
+
+  // ── Bulldog Draw ──
+  {
+    category: "Face-Offs",
+    question: "The 'Bulldog' draw is described as very high risk. What does the Center do differently compared to a normal draw?",
+    options: [
+      { text: "The Center shoots the puck directly at the net immediately after the drop", correct: false },
+      { text: "The Center ties up his opponent and leaves the puck for the forwards to pick up", correct: true },
+      { text: "The Center steps aside and lets a forward take the draw instead", correct: false },
+      { text: "The Center draws the puck back to D1 who immediately shoots from the point", correct: false },
+    ],
+    explanation: "Bulldog draw: very high risk — the Center ties up his opponent and leaves the puck for the forwards to pick up. It is crucial that the defense holds up their wingers. Center, D1, and D2 must be ready to come home right away. Can be done on any neutral zone face-off dot.", page: 11
+  },
+  {
+    category: "Face-Offs",
+    question: "If an opponent runs the 'Bulldog' draw against the Bears, what is the Bears' counter-response?",
+    options: [
+      { text: "Match the Bulldog — tie up their center and let our forwards pick up the puck", correct: false },
+      { text: "Do a forward draw, roll a forward off his defense, have Center join, and bring the other forward home for safety", correct: true },
+      { text: "Drop into a defensive shell immediately and don't attempt to counter-attack", correct: false },
+      { text: "Have D1 step up aggressively to pressure the loose puck before the opponent forwards can reach it", correct: false },
+    ],
+    explanation: "Counter to Bulldog: 'If an opponent does this to us, we do a forward draw and roll a forward off his defense, Center will join, the other forward will come home for safety.'", page: 11
+  },
+
+  // ── Pony Draw ──
+  {
+    category: "Face-Offs",
+    question: "In the 'Pony Draw' (defensive zone win), what does D1 do with the puck and why is it effective?",
+    options: [
+      { text: "D1 makes a sharp pass directly to F1 cutting to the middle for a quick breakout", correct: false },
+      { text: "D1 flips the puck up the boards — a bouncing puck forces the opponent D to handle it awkwardly, catching his partner flat-footed", correct: true },
+      { text: "D1 skates the puck behind the net and reverses to the other D for a 'Hollywood'-style play", correct: false },
+      { text: "D1 passes to C at the face-off dot who then sends it quickly to F2 breaking up the wall", correct: false },
+    ],
+    explanation: "Pony Draw: D1 flips the puck up the boards. Since the puck is in the air or bouncing, it makes the opponent D try to handle it while his D partner usually gets caught staring at the puck (flat footed). F1 engages to force the puck behind the opponent D, and F2 sprints between the D to pick up the loose puck.", page: 12
+  },
+  {
+    category: "Face-Offs",
+    question: "On the 'Pony Draw', what is the Center's responsibility and what does the Center become if the play succeeds?",
+    options: [
+      { text: "Center immediately forechecks with F1 and F2 — if successful, stays deep in the zone", correct: false },
+      { text: "Center MUST stay behind in case the play fails; if successful, Center becomes F3 down the ice", correct: true },
+      { text: "Center goes to the net immediately to screen the goalie during the play", correct: false },
+      { text: "Center holds the blue line as a point man for a potential shot", correct: false },
+    ],
+    explanation: "Pony Draw: the Center MUST stay behind in case the play is not successful, and will become F3 down the ice if the play IS successful. If it fails, the Center must cover his man as the team aggressively leaves the zone with at least one forward.", page: 12
+  },
 ];
+
 
 // ─── QUIZ STATE ───────────────────────────────────────────────────────────────
 let questions = [];
@@ -1403,6 +1760,7 @@ function submitAnswer() {
     sb.classList.add("flash");
     fb.className = "feedback correct";
     fb.innerHTML = `<strong>✓ Correct!</strong> ${q.explanation}`;
+    fireConfetti();
   } else {
     fb.className = "feedback wrong";
     fb.innerHTML = `<strong>✗ Incorrect.</strong> ${q.explanation}${q.page ? `<br><span class="page-ref">📖 Playbook page ${q.page}</span>` : ''}`;
@@ -1433,26 +1791,27 @@ function showResults() {
   document.getElementById("results-score").textContent = score;
   document.getElementById("results-denom").textContent = `out of ${total} questions — ${pct}%`;
 
-  // Grade scale based on 54 questions:
-  // A: 49–54 (90–100%)
-  // B: 44–48 (81–89%)
-  // C: 38–43 (70–80%)
-  // D: 33–37 (61–69%)
-  // F: 0–32  (0–60%)
+  // Grade scale based on 79 questions:
+  // A: 72–79 (90–100%)
+  // B: 64–71 (81–89%)
+  // C: 56–63 (70–79%)
+  // D: 48–55 (61–69%)
+  // F: 0–47  (0–60%)
   let letter, title, grade;
-  if (score >= 49) {
+  if (score >= 72) {
     letter = "A";
-    title = score === 54 ? "Perfect Score!" : "Outstanding!";
-    grade = `🏆 <span>${score === 54 ? "Flawless. Elite Hockey IQ — you know this playbook cold." : "Excellent playbook knowledge. You're ready to lead on the ice."}</span>`;
-  } else if (score >= 44) {
+    title = score === 79 ? "Perfect Score!" : "Outstanding!";
+    grade = `🏆 <span>${score === 79 ? "Flawless. Elite Hockey IQ — you know this playbook cold." : "Excellent playbook knowledge. You're ready to lead on the ice."}</span>`;
+    if (score === 79) setTimeout(firePerfectConfetti, 400);
+  } else if (score >= 64) {
     letter = "B";
     title = "Solid Work!";
     grade = `🥈 <span>Strong understanding of the system. Review the sections you missed and push for that A.</span>`;
-  } else if (score >= 38) {
+  } else if (score >= 56) {
     letter = "C";
     title = "Keep Building";
     grade = `🏒 <span>You have the basics down. Re-read the playbook sections you struggled with and try again.</span>`;
-  } else if (score >= 33) {
+  } else if (score >= 48) {
     letter = "D";
     title = "More Work Needed";
     grade = `📋 <span>You're getting there, but the playbook needs more study time before game day.</span>`;
@@ -1464,7 +1823,7 @@ function showResults() {
 
   // Inject letter grade into the score display
   document.getElementById("results-score").innerHTML =
-    `${score} <span style="font-size:2.5rem;color:${score>=49?'#27ae60':score>=44?'#4a8aff':score>=38?'var(--amber)':score>=33?'#e67e22':'var(--red)'}">  ${letter}</span>`;
+    `${score} <span style="font-size:2.5rem;color:${score>=72?'#27ae60':score>=64?'#4a8aff':score>=56?'var(--amber)':score>=48?'#e67e22':'var(--red)'}">  ${letter}</span>`;
 
   document.getElementById("results-title").textContent = title;
   document.getElementById("results-grade").innerHTML = grade;
@@ -1485,10 +1844,10 @@ function showResults() {
 
   // Build mailto link
   const subject = encodeURIComponent(`Bears Hockey Playbook Quiz — ${letter} (${score}/${total}, ${pct}%)`);
-  const gradeText = score>=49 ? (score===54 ? "Flawless. Elite Hockey IQ." : "Outstanding — excellent playbook knowledge.") :
-                    score>=44 ? "Solid Work — strong understanding of the system." :
-                    score>=38 ? "Keep Building — review the sections you missed." :
-                    score>=33 ? "More Work Needed — study before game day." :
+  const gradeText = score>=72 ? (score===79 ? "Flawless. Elite Hockey IQ." : "Outstanding — excellent playbook knowledge.") :
+                    score>=64 ? "Solid Work — strong understanding of the system." :
+                    score>=56 ? "Keep Building — review the sections you missed." :
+                    score>=48 ? "More Work Needed — study before game day." :
                                 "Back to the Playbook — study hard and come back stronger.";
   let body = `BEARS HOCKEY — 2026-27 PLAYBOOK QUIZ RESULTS\n`;
   body += `${'='.repeat(46)}\n\n`;
@@ -1506,10 +1865,35 @@ function showResults() {
   body += `\n${'='.repeat(46)}\n`;
   body += `Bears Hockey · 2026-27 Season · 062526v2`;
   document.getElementById("btn-email").href = `mailto:?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
 
 function restartQuiz() {
   document.getElementById("results-screen").style.display = "none";
   document.getElementById("start-screen").style.display = "block";
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<script>
+function fireConfetti() {
+  // Bears colours: maroon + amber + white
+  const colors = ['#8B1A1A', '#F5A623', '#ffffff', '#a82020', '#ffc84a'];
+  confetti({
+    particleCount: 80,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors: colors,
+    ticks: 200,
+  });
+}
+
+function firePerfectConfetti() {
+  const colors = ['#8B1A1A', '#F5A623', '#ffffff', '#27ae60', '#4aff88'];
+  const end = Date.now() + 2500;
+  (function frame() {
+    confetti({ particleCount: 6, angle: 60,  spread: 55, origin: { x: 0 }, colors });
+    confetti({ particleCount: 6, angle: 120, spread: 55, origin: { x: 1 }, colors });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
 }
 </script>
 <div style="position:fixed;bottom:10px;right:14px;font-family:'Inter',sans-serif;font-size:0.65rem;color:#2a3f5f;pointer-events:none;user-select:none;z-index:999;">062526v2</div>
