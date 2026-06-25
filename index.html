@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bears Hockey — Playbook Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:        #0B1628;
+    --card:      #111f38;
+    --card2:     #162542;
+    --maroon:    #8B1A1A;
+    --maroon2:   #a82020;
+    --ice:       #E8F4FF;
+    --ice-dim:   #7a9abf;
+    --amber:     #F5A623;
+    --green:     #27ae60;
+    --green-bg:  #0d2a1a;
+    --red:       #c0392b;
+    --red-bg:    #2a0d0d;
+    --border:    #1e3156;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ice);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HEADER ── */
+  header {
+    width: 100%;
+    background: var(--card);
+    border-bottom: 2px solid var(--maroon);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: 64px;
+  }
+  .header-left { display: flex; align-items: center; gap: 12px; }
+  .bear-icon { font-size: 1.8rem; line-height: 1; }
+  .header-title {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ice);
+    line-height: 1.1;
+  }
+  .header-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    color: var(--ice-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* scoreboard */
+  .scoreboard {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--amber);
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .scoreboard .label { font-size: 0.65rem; color: var(--ice-dim); font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+  .scoreboard.flash { animation: goalFlash 0.6s ease; }
+  @keyframes goalFlash {
+    0%   { color: var(--amber); background: var(--bg); }
+    30%  { color: #fff;         background: var(--maroon); }
+    100% { color: var(--amber); background: var(--bg); }
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    width: 100%;
+    max-width: 760px;
+    padding: 20px 24px 0;
+  }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--ice-dim);
+    margin-bottom: 6px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--maroon), var(--amber));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  /* ── MAIN ── */
+  main {
+    width: 100%;
+    max-width: 760px;
+    padding: 24px 24px 60px;
+    flex: 1;
+  }
+
+  /* ── CATEGORY BADGE ── */
+  .category-badge {
+    display: inline-block;
+    background: var(--maroon);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-bottom: 14px;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    animation: slideIn 0.3s ease;
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .question-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--ice);
+    margin-bottom: 22px;
+  }
+
+  /* diagram block */
+  .diagram-block {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: var(--ice-dim);
+    line-height: 1.6;
+  }
+  .diagram-block .diagram-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .rink-svg { display: block; margin: 0 auto 10px; }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option-btn {
+    background: var(--card2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--ice);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: #3a5a8a;
+    background: #1a2f50;
+  }
+  .option-btn.selected {
+    border-color: var(--amber);
+    background: #1e2e10;
+    border-color: #4a7cc4;
+    background: #162a48;
+  }
+  .option-btn.correct {
+    border-color: var(--green) !important;
+    background: var(--green-bg) !important;
+    color: #6effa8;
+  }
+  .option-btn.wrong {
+    border-color: var(--red) !important;
+    background: var(--red-bg) !important;
+    color: #ff8a80;
+  }
+  .option-btn.revealed-correct {
+    border-color: var(--green) !important;
+    background: var(--green-bg) !important;
+    color: #6effa8;
+  }
+  .option-btn:disabled { cursor: default; }
+
+  .opt-letter {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--ice-dim);
+    min-width: 22px;
+    padding-top: 1px;
+    transition: color 0.15s;
+  }
+  .option-btn.correct .opt-letter,
+  .option-btn.revealed-correct .opt-letter { color: var(--green); }
+  .option-btn.wrong .opt-letter { color: var(--red); }
+  .option-btn.selected .opt-letter { color: var(--amber); }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .feedback.correct { display: block; background: var(--green-bg); border: 1px solid var(--green); color: #6effa8; }
+  .feedback.wrong   { display: block; background: var(--red-bg);   border: 1px solid var(--red);   color: #ff8a80; }
+  .feedback strong  { font-family: 'Oswald', sans-serif; font-size: 0.95rem; letter-spacing: 0.5px; }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: flex-end;
+  }
+  .btn {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 7px;
+    padding: 11px 26px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-submit {
+    background: var(--maroon);
+    color: #fff;
+  }
+  .btn-submit:hover:not(:disabled) { background: var(--maroon2); }
+  .btn-submit:disabled { background: #3a2020; color: #7a5050; cursor: default; }
+  .btn-next {
+    background: var(--amber);
+    color: #0B1628;
+    display: none;
+  }
+  .btn-next:hover { background: #f0b94a; }
+
+  /* ── RESULTS SCREEN ── */
+  #results-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 24px 60px;
+    animation: slideIn 0.4s ease;
+  }
+  .results-bear { font-size: 4rem; margin-bottom: 16px; }
+  .results-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .results-score-big {
+    font-family: 'Oswald', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    margin: 20px 0 6px;
+  }
+  .results-denom {
+    color: var(--ice-dim);
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+  .results-grade {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    color: var(--ice-dim);
+    margin-bottom: 32px;
+  }
+  .results-grade span { color: var(--ice); }
+
+  /* category breakdown */
+  .breakdown {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: left;
+    margin-bottom: 32px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .breakdown-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ice-dim);
+    margin-bottom: 14px;
+  }
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-cat { color: var(--ice-dim); }
+  .breakdown-score { font-family: 'Oswald', sans-serif; font-weight: 600; color: var(--amber); }
+  .breakdown-score.perfect { color: var(--green); }
+
+  .btn-restart {
+    background: var(--maroon);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 40px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-restart:hover { background: var(--maroon2); }
+
+  /* ── START SCREEN ── */
+  #start-screen {
+    text-align: center;
+    padding: 40px 24px 60px;
+  }
+  .start-bear { font-size: 5rem; margin-bottom: 20px; }
+  .start-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .start-sub {
+    color: var(--maroon2);
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .start-info {
+    color: var(--ice-dim);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+  .topics-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    max-width: 560px;
+    margin: 0 auto 36px;
+  }
+  .topic-pill {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    color: var(--ice-dim);
+    font-weight: 500;
+  }
+  .btn-start {
+    background: var(--maroon);
+    color: #fff;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 48px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn-start:hover { background: var(--maroon2); transform: translateY(-1px); }
+
+  @media (max-width: 520px) {
+    .question-text { font-size: 1.08rem; }
+    .start-title { font-size: 1.8rem; }
+    .results-score-big { font-size: 3.5rem; }
+    header { min-height: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <span class="bear-icon">🐻</span>
+    <div>
+      <div class="header-title">Bears Hockey</div>
+      <div class="header-sub">Playbook Quiz · 2025–26</div>
+    </div>
+  </div>
+  <div class="scoreboard" id="scoreboard">
+    <span class="label">Score&nbsp;</span>
+    <span id="score-display">0</span>
+    <span style="color:var(--ice-dim);font-size:0.85rem">&nbsp;/&nbsp;<span id="total-display">0</span></span>
+  </div>
+</header>
+
+<!-- START SCREEN -->
+<main id="start-screen">
+  <div class="start-bear">🐻</div>
+  <div class="start-title">Playbook Quiz</div>
+  <div class="start-sub">2025–26 Season · Test Your Hockey IQ</div>
+  <p class="start-info">
+    Multiple-choice questions covering every section of the Bears playbook —
+    key terms, offensive and defensive zones, forechecks, special teams,
+    zone diagrams, and team culture. One question at a time. Submit your answer to see if you're right.
+  </p>
+  <div class="topics-grid" id="topics-grid"></div>
+  <button class="btn-start" onclick="startQuiz()">Start Quiz</button>
+</main>
+
+<!-- QUIZ SCREEN -->
+<div id="quiz-screen" style="display:none; width:100%; max-width:760px;">
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="q-label">Question 1</span>
+      <span id="q-of">of 0</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <main>
+    <div class="category-badge" id="q-category">—</div>
+    <div class="question-card" id="question-card">
+      <div class="question-text" id="q-text"></div>
+      <div id="diagram-area"></div>
+      <div class="options" id="options-list"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="btn-row">
+        <button class="btn btn-submit" id="btn-submit" onclick="submitAnswer()" disabled>Submit</button>
+        <button class="btn btn-next"   id="btn-next"   onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- RESULTS SCREEN -->
+<div id="results-screen">
+  <div class="results-bear">🏒</div>
+  <div class="results-title" id="results-title">Final Score</div>
+  <div class="results-score-big" id="results-score">0</div>
+  <div class="results-denom" id="results-denom">out of 0 questions</div>
+  <div class="results-grade" id="results-grade"></div>
+  <div class="breakdown" id="breakdown"></div>
+  <button class="btn-restart" onclick="restartQuiz()">↺ Try Again</button>
+</div>
+
+<script>
+// ─── QUESTION BANK ────────────────────────────────────────────────────────────
+// Each entry: { category, question, diagram (optional SVG/HTML string), options: [{text,correct}], explanation }
+
+const QUESTIONS = [
+
+  // ══════════════════════════════════════════════════════════
+  // KEY TERMS
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Key Terms",
+    question: "What is the one-word definition of 'Time and Space' as used in the Bears playbook?",
+    options: [
+      { text: "Awareness", correct: false },
+      { text: "Distance", correct: true },
+      { text: "Speed", correct: false },
+      { text: "Timing", correct: false },
+    ],
+    explanation: "The playbook defines Time and Space as, in one word, DISTANCE — creating distance to execute decisions with lower risk of failure."
+  },
+  {
+    category: "Key Terms",
+    question: "Which of the following best describes 'Deception' in the Bears playbook?",
+    options: [
+      { text: "Skating faster than the opponent to create space", correct: false },
+      { text: "Making the opponent believe you will do the exact opposite of what you intend", correct: true },
+      { text: "Passing the puck behind your back to surprise the defense", correct: false },
+      { text: "Using peripheral vision to read the play", correct: false },
+    ],
+    explanation: "The playbook defines Deception as 'LYING' — making opponents believe you will do the opposite of your actual intention."
+  },
+  {
+    category: "Key Terms",
+    question: "Tempo is described in the playbook as a _____ concept, while speed is a _____ concept.",
+    options: [
+      { text: "Team / individual", correct: true },
+      { text: "Individual / team", correct: false },
+      { text: "Offensive / defensive", correct: false },
+      { text: "Defensive / offensive", correct: false },
+    ],
+    explanation: "Tempo is a TEAM concept (multiple players moving together), while speed is an individual concept (how hard one player skates, passes, or shoots)."
+  },
+  {
+    category: "Key Terms",
+    question: "What is the key difference between 'Tempo' and 'Timing' according to the playbook?",
+    options: [
+      { text: "Tempo is individual; Timing is a team concept", correct: false },
+      { text: "Timing involves being at the right place at the right speed at the right time; Tempo is the overall game speed produced by multiple players", correct: true },
+      { text: "Timing means skating fast; Tempo means passing accurately", correct: false },
+      { text: "They mean the same thing in different contexts", correct: false },
+    ],
+    explanation: "Timing = right place + right speed + right time (individual). Tempo = the overall speed of the game driven by multiple players executing together. Without Timing you can't have Tempo."
+  },
+  {
+    category: "Key Terms",
+    question: "According to the playbook, what is 'Peripheral Awareness'?",
+    options: [
+      { text: "The ability to see the puck at all times while skating", correct: false },
+      { text: "Looking in one direction while being aware of everything within your 180-degree field of vision", correct: true },
+      { text: "Knowing where all opponents are by memorizing line-up cards", correct: false },
+      { text: "Using verbal communication to alert teammates of oncoming checkers", correct: false },
+    ],
+    explanation: "Peripheral Awareness = looking in one direction but being aware of everything within your 180-degree line of sight. Trained by dribbling with your head up at all times."
+  },
+  {
+    category: "Key Terms",
+    question: "The playbook defines 'Recovery' as which of the following?",
+    options: [
+      { text: "A defenseman retrieving the puck from behind his own net", correct: false },
+      { text: "Individually chasing down a puck that was turned over — don't let teammates clean up for you", correct: true },
+      { text: "A goalie recovering to the proper angle after a deke", correct: false },
+      { text: "Coming back to the defensive zone after a failed forecheck", correct: false },
+    ],
+    explanation: "Recovery = individually taking back the puck that was once turned over. Immediately stop and chase the opponent down — don't let teammates clean up your mistake."
+  },
+  {
+    category: "Key Terms",
+    question: "What distinguishes a 'Turnover' from an intentional dump-in, according to the playbook?",
+    options: [
+      { text: "A turnover only happens in the defensive zone", correct: false },
+      { text: "A dump-in is always a turnover because the other team gets the puck", correct: false },
+      { text: "A turnover is when intent does NOT match outcome; a dump-in with intent to change is not a turnover", correct: true },
+      { text: "A turnover only occurs on a broken pass, not a missed shot", correct: false },
+    ],
+    explanation: "Turnover = intent does not match outcome. If you intentionally dump the puck (e.g., for a line change) and the other team gets it, that is NOT a turnover because the intent matched the action."
+  },
+  {
+    category: "Key Terms",
+    question: "What does 'Split the Ice' mean in the Bears defensive system?",
+    options: [
+      { text: "A forward divides the ice by skating laterally across the neutral zone", correct: false },
+      { text: "A player takes out the left-to-right passing lane between two opponent defensemen to minimize space", correct: true },
+      { text: "Two defensemen separate to cover both sides of the blue line", correct: false },
+      { text: "The team spreads across all three neutral zone lanes equally", correct: false },
+    ],
+    explanation: "Split the Ice = when a player (most often F1) positions in the lane BETWEEN the two opponent defensemen, taking out the D-to-D transition pass and minimizing space."
+  },
+  {
+    category: "Key Terms",
+    question: "GAMSE is the Bears' method for taking defensive control. What does the 'A' stand for?",
+    options: [
+      { text: "Accelerate toward the puck carrier", correct: false },
+      { text: "Angle the opponent — give the puck carrier one option where your angle dictates where the play goes", correct: true },
+      { text: "Anticipate the next pass", correct: false },
+      { text: "Attack from the inside out", correct: false },
+    ],
+    explanation: "GAMSE: Gap up → Angle → Match speed → Steer → Engage. The A = Angle — position so your body and stick give the puck carrier only one direction to go."
+  },
+  {
+    category: "Key Terms",
+    question: "According to the playbook, what does 'Get Over the Puck' mean?",
+    options: [
+      { text: "One forward aggressively forechecks the puck carrier in the offensive zone", correct: false },
+      { text: "The team chases the puck laterally from one side to the other", correct: false },
+      { text: "The entire team retreats quickly toward their own net so all five players can play systematic defense", correct: true },
+      { text: "A defenseman rushes up to retrieve a loose puck in the neutral zone", correct: false },
+    ],
+    explanation: "Get Over the Puck = the TEAM comes back toward their own net quickly (not chasing left-to-right), getting at least 4 of 5 players into a systematic defensive structure."
+  },
+  {
+    category: "Key Terms",
+    question: "The Hashmark Rule governs F3's behavior in the offensive zone. What does F3 do when the puck is BELOW the hashmark?",
+    options: [
+      { text: "Screen the goalie directly in front of the net", correct: false },
+      { text: "Stay high on the strong side", correct: true },
+      { text: "Drop below the goal line for a cycle pass", correct: false },
+      { text: "Move to the weak side blue line for a defensive safety", correct: false },
+    ],
+    explanation: "Hashmark Rule: puck ABOVE the hashmark → screen the goalie. Puck BELOW the hashmark → stay HIGH on the strong side. F3 must stay dynamic as the puck moves."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // OFFENSIVE ZONE AREAS (from diagram on p.7)
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Offensive Zone — Areas",
+    question: "The diagram below shows the four offensive zone areas. Which area is the HIGH SLOT — described as a dangerous scoring area that is highly defended?",
+    diagram: `<svg class="rink-svg" viewBox="0 0 260 200" width="240" height="185" xmlns="http://www.w3.org/2000/svg">
+      <!-- rink outline -->
+      <rect x="10" y="10" width="240" height="180" rx="18" fill="#0d2240" stroke="#2a4a7a" stroke-width="2"/>
+      <!-- goal crease -->
+      <rect x="105" y="155" width="50" height="22" rx="4" fill="none" stroke="#4a8aff" stroke-width="1.5"/>
+      <!-- net -->
+      <rect x="115" y="172" width="30" height="10" rx="2" fill="#333"/>
+      <!-- face-off circles -->
+      <circle cx="75"  cy="110" r="22" fill="none" stroke="#2a4a7a" stroke-width="1.2"/>
+      <circle cx="185" cy="110" r="22" fill="none" stroke="#2a4a7a" stroke-width="1.2"/>
+      <!-- center dot -->
+      <circle cx="130" cy="60" r="4" fill="#2a4a7a"/>
+      <!-- area labels -->
+      <rect x="95"  y="58"  width="70" height="28" rx="4" fill="#1a3a6a" stroke="#3a6aaa" stroke-width="1"/>
+      <text x="130" y="77" text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="14" font-weight="700">?</text>
+      <rect x="95"  y="100" width="70" height="28" rx="4" fill="#1a3a6a" stroke="#3a6aaa" stroke-width="1"/>
+      <text x="130" y="119" text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="14" font-weight="700">B</text>
+      <rect x="18"  y="55"  width="52" height="26" rx="4" fill="#162030" stroke="#2a4a7a" stroke-width="1"/>
+      <text x="44"  y="73"  text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="13" font-weight="700">C</text>
+      <rect x="190" y="55"  width="52" height="26" rx="4" fill="#162030" stroke="#2a4a7a" stroke-width="1"/>
+      <text x="216" y="73"  text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="13" font-weight="700">C</text>
+      <rect x="18"  y="130" width="52" height="26" rx="4" fill="#162030" stroke="#2a4a7a" stroke-width="1"/>
+      <text x="44"  y="148" text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="13" font-weight="700">D</text>
+      <rect x="190" y="130" width="52" height="26" rx="4" fill="#162030" stroke="#2a4a7a" stroke-width="1"/>
+      <text x="216" y="148" text-anchor="middle" fill="#7ab4ff" font-family="Oswald,sans-serif" font-size="13" font-weight="700">D</text>
+      <text x="130" y="25" text-anchor="middle" fill="#4a7acc" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1">OFFENSIVE END</text>
+    </svg>`,
+    options: [
+      { text: "Area A — the center slot marked with '?' in the diagram", correct: true },
+      { text: "Area B — the slot just above the crease", correct: false },
+      { text: "Area C — the wings along the boards", correct: false },
+      { text: "Area D — the low corners near the goal line", correct: false },
+    ],
+    explanation: "Area A = High Slot (dangerous scoring area, highly defended). Area B = Low Slot (very dangerous, highly defended). C = High Soft Area (wings). D = Low Soft Area (corners, no scoring threat)."
+  },
+  {
+    category: "Offensive Zone — Areas",
+    question: "According to the playbook's zone diagram, which player is responsible for defending Area A (High Slot)?",
+    options: [
+      { text: "The strong side winger", correct: false },
+      { text: "The center", correct: false },
+      { text: "The weak side winger", correct: true },
+      { text: "The defensive defenseman", correct: false },
+    ],
+    explanation: "Area A is defended by the WEAK SIDE winger. Area C is defended by the strong side winger. Areas B and D are covered by the center and defensemen."
+  },
+  {
+    category: "Offensive Zone — Areas",
+    question: "If the puck is passed into Area D (low soft area), what should the defending team do?",
+    options: [
+      { text: "Rush the puck carrier immediately to force a turnover", correct: false },
+      { text: "Cover toward the net — not the receiver — and stay in the passer's lane toward the net", correct: true },
+      { text: "Drop into a box formation in front of the crease", correct: false },
+      { text: "Send two players to double-team the puck in the corner", correct: false },
+    ],
+    explanation: "If a pass goes into Area D, the defending team covers TOWARD THE NET (not the receiver) and stays in the passer's lane toward the net. Never give up Areas A or B without knowing they're covered."
+  },
+  {
+    category: "Offensive Zone — Areas",
+    question: "In the sustained pressure offensive zone, what coverage applies to Area B (Low Slot)?",
+    options: [
+      { text: "Stick-length net-out coverage", correct: false },
+      { text: "Body-on-body coverage", correct: true },
+      { text: "Stay in the shooting lane only", correct: false },
+      { text: "Weak side winger covers it from the high slot", correct: false },
+    ],
+    explanation: "Area A = covered within stick-length net-out. Area B = covered BODY-ON-BODY. Area C = stay in the shooting lane."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // OFFENSIVE ZONE MODES OF ATTACK
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Offensive Zone — Attack Modes",
+    question: "What is the 'F1 to F2 Give and Go' play?",
+    options: [
+      { text: "F1 passes to F2 who immediately shoots on net, then F1 goes for the rebound", correct: false },
+      { text: "F1 lures the D and C to the outside, passes to F2 down low, then cuts to the middle between the opponent F and D", correct: true },
+      { text: "F1 drops the puck to F2 behind the net for a wraparound attempt", correct: false },
+      { text: "F1 passes to F2 at the blue line for a one-timer from the point", correct: false },
+    ],
+    explanation: "Give and Go: F1 lures defenders outside → passes to F2 down low → immediately cuts to the middle between the opponent forward and defenseman for the return pass."
+  },
+  {
+    category: "Offensive Zone — Attack Modes",
+    question: "In the 'Forward/Defense Scissor to F3' play, why does the attacking defenseman support with an outside scissor?",
+    options: [
+      { text: "To screen the goalie while F1 shoots from the half-wall", correct: false },
+      { text: "To draw the attention of the defending F and C, creating space for F3 to receive inside", correct: true },
+      { text: "To position for a point shot if F1 loses the puck in the corner", correct: false },
+      { text: "To prevent an icing call if the puck goes wide", correct: false },
+    ],
+    explanation: "The scissor draws the defending F and C's attention, which leaves an opening for F3 — who should always be high in the zone — to receive the puck along the inside area for a quick play."
+  },
+  {
+    category: "Offensive Zone — Attack Modes",
+    question: "When opponents are 'tight' and closing down the slot, which attacking option does the playbook prioritize last in the offensive zone?",
+    options: [
+      { text: "Single attack up the wall", correct: false },
+      { text: "Give and Go to F2", correct: false },
+      { text: "Defensemen along the blue line with perimeter shots, relying on the hashmark rule", correct: true },
+      { text: "Forward/Defense Scissor", correct: false },
+    ],
+    explanation: "When the opponent closes the slot ('tight'), the Bears fall back to defensemen along the blue line with perimeter attacks — shooting for rebounds (knee high or lower) and relying on the hashmark rule for F3."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // ZONE PENETRATION / RUSHING ATTACK (p.11–13)
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Zone Penetration",
+    question: "The playbook compares 2D vs 3D attacking. What element does a 3D attack add that a 2D attack lacks?",
+    options: [
+      { text: "Speed — the forward skates faster in a 3D attack", correct: false },
+      { text: "Depth — the lateral attack forces the defenseman to adjust both speed AND direction", correct: true },
+      { text: "Deception — the forward fakes a shot before deking", correct: false },
+      { text: "Width — multiple forwards spread across all three lanes", correct: false },
+    ],
+    explanation: "A 3D attack adds DEPTH. When attacking laterally, a deke left or right forces a speed AND direction adjustment simultaneously — making it twice as powerful. It also forces the goalie to change his angle."
+  },
+  {
+    category: "Zone Penetration",
+    question: "In a 3-on-2 with the CORRIDOR given and the OUTSIDE F1 carrying the puck, what does F2 do immediately?",
+    options: [
+      { text: "Skates to the net to provide a screen for F1's shot", correct: false },
+      { text: "Creates a 'scissor' support pattern as F1 cuts to the middle", correct: true },
+      { text: "Holds the blue line in case of a turnover", correct: false },
+      { text: "Drops behind the play for a safety outlet to the D", correct: false },
+    ],
+    explanation: "When the corridor is given and F1 cuts to the middle, F2 recognizes this and creates a scissor pattern — adding DEPTH to the attack. D1 flattens to F1, and F2's depth creates a 2-on-1 scenario."
+  },
+  {
+    category: "Zone Penetration",
+    question: "The diagram below shows a 3-on-2 rush. The 'Corridor' is the shaded zone between the blue line and the top of the offensive zone circles. When the corridor is NOT given, what does F3 do to create a 3D attack?",
+    diagram: `<svg class="rink-svg" viewBox="0 0 260 220" width="240" height="205" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="240" height="200" rx="18" fill="#0d2240" stroke="#2a4a7a" stroke-width="2"/>
+      <!-- blue line -->
+      <line x1="10" y1="90" x2="250" y2="90" stroke="#4a8aff" stroke-width="2"/>
+      <!-- corridor shading -->
+      <rect x="10" y="90" width="240" height="38" fill="#1a3050" opacity="0.7"/>
+      <text x="130" y="113" text-anchor="middle" fill="#4a8aff" font-family="Oswald,sans-serif" font-size="10" letter-spacing="1">CORRIDOR</text>
+      <!-- goal crease & net -->
+      <rect x="105" y="172" width="50" height="20" rx="3" fill="none" stroke="#4a8aff" stroke-width="1.5"/>
+      <rect x="115" y="187" width="30" height="8" rx="2" fill="#333"/>
+      <!-- face-off dots -->
+      <circle cx="70"  cy="145" r="3" fill="#2a4a7a"/>
+      <circle cx="190" cy="145" r="3" fill="#2a4a7a"/>
+      <!-- Defenders D1 D2 -->
+      <circle cx="95"  cy="130" r="12" fill="#8B1A1A" stroke="#ff6060" stroke-width="1.5"/>
+      <text x="95"  y="135" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="11" font-weight="700">D1</text>
+      <circle cx="165" cy="130" r="12" fill="#8B1A1A" stroke="#ff6060" stroke-width="1.5"/>
+      <text x="165" y="135" text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="11" font-weight="700">D2</text>
+      <!-- Forwards F1 F2 F3 -->
+      <circle cx="50"  cy="75"  r="12" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="50"  y="80"  text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="11" font-weight="700">F1</text>
+      <circle cx="130" cy="65"  r="12" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="130" y="70"  text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="11" font-weight="700">F2</text>
+      <circle cx="210" cy="75"  r="12" fill="#1a4a2a" stroke="#4aff88" stroke-width="1.5"/>
+      <text x="210" y="80"  text-anchor="middle" fill="white" font-family="Oswald,sans-serif" font-size="11" font-weight="700">F3</text>
+      <!-- puck -->
+      <circle cx="50" cy="75" r="4" fill="#F5A623"/>
+      <text x="130" y="25" text-anchor="middle" fill="#4a7acc" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1">3-ON-2 — NO CORRIDOR</text>
+    </svg>`,
+    options: [
+      { text: "F3 holds wide on the strong side wall and waits for a breakaway pass", correct: false },
+      { text: "F3 cuts across creating DEPTH to the attack while F2 goes to the net", correct: true },
+      { text: "F3 drops back to the blue line as a safety in case of a turnover", correct: false },
+      { text: "F3 screens the goalie while F1 takes the puck wide", correct: false },
+    ],
+    explanation: "This is the Center Line Drive. When no corridor is given, F1 attacks outside while F2 goes to the net and F3 CUTS ACROSS creating DEPTH. If F3 gets the puck, the defense stops to play the shooting lane — 3D attack achieved."
+  },
+  {
+    category: "Zone Penetration",
+    question: "The playbook's conclusion on 3D attacks states: 'If the Corridor is given…' — what is the correct instruction?",
+    options: [
+      { text: "Attack the outside (both D1 and D2) and see which support player is open", correct: false },
+      { text: "Attack D1 first, then D2", correct: true },
+      { text: "Set up in the offensive zone and run the hashmark rule", correct: false },
+      { text: "Have F3 immediately screen the goalie to create a tip opportunity", correct: false },
+    ],
+    explanation: "Direct from the playbook: 'If the Corridor is given, attack D1 first then D2. If the Corridor is not given, attack the outside (both D1 and D2) and see which player (F2 or F3) is open.'"
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // NEUTRAL ZONE
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Neutral Zone",
+    question: "The neutral zone has three lanes (1, 2, 3). Defensively, the Bears want to defend from which lane outward?",
+    options: [
+      { text: "Lane 1 — the strong side lane", correct: false },
+      { text: "Lane 2 — the middle lane, moving outward to Lanes 1 or 3 depending on puck side", correct: true },
+      { text: "Lane 3 — the weak side lane", correct: false },
+      { text: "All three simultaneously in a flat line", correct: false },
+    ],
+    explanation: "Defensively, NEVER stand in Zone 1 or 3 without purpose. Always gap-up on opponents from Zone 2 outward — it is a 100%, can't-be-wrong decision."
+  },
+  {
+    category: "Neutral Zone",
+    question: "Which of the following is NOT listed as an offensive neutral zone priority?",
+    options: [
+      { text: "Speed off the puck (increases Tempo)", correct: false },
+      { text: "Strong side support (safety)", correct: false },
+      { text: "Interchanging lanes (creates space in small areas)", correct: false },
+      { text: "Shooting the puck immediately on entry to create chaos", correct: true },
+    ],
+    explanation: "The five neutral zone offensive priorities are: spread the defense & create depth, strong side support, speed off the puck, depth of attack, and interchanging lanes. Shooting immediately is not a listed priority."
+  },
+  {
+    category: "Neutral Zone",
+    question: "In the offensive regroup, what is F2's key role in the neutral zone?",
+    options: [
+      { text: "Stay in the middle lane, skate directly at D1 for a quick give-and-go", correct: false },
+      { text: "Position on the weak side toward Zone 3 and provide a cut lane up or across the ice", correct: true },
+      { text: "Skate as fast as possible up the strong side wall to create a 2-on-1", correct: false },
+      { text: "Drop back to support the puck-carrying defenseman if pressured", correct: false },
+    ],
+    explanation: "F2 should NOT skate directly at D1 (he'll have a blind side and bad angle). He should position on the WEAK SIDE toward Zone 3 and provide a cut lane, ideally up the ice or across for a quick pass option."
+  },
+  {
+    category: "Neutral Zone",
+    question: "When the defense is being pressured in the neutral zone and the forwards are not yet ready, what should the puck-carrying D do?",
+    options: [
+      { text: "Rush forward and dump the puck to gain the red line", correct: false },
+      { text: "Move backwards to create more space and draw the forecheck deeper", correct: true },
+      { text: "Pass immediately to the nearest forward regardless of their position", correct: false },
+      { text: "Skate into the corner and protect the puck until help arrives", correct: false },
+    ],
+    explanation: "The playbook is explicit: when skating upward does NOT create an odd-man rush and the math isn't on your side, MOVE BACKWARDS. This draws the forecheck deeper, opens space for forwards, and allows the D partner to spread wide."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // DEFENSIVE ZONE — BREAKOUT
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Defensive Zone — Breakout",
+    question: "Which breakout method does the playbook describe as most efficient and why?",
+    options: [
+      { text: "Skate it out — skating is more controllable than a pass", correct: false },
+      { text: "Shoot/flip it out — clears the zone immediately", correct: false },
+      { text: "Pass it out — a good pass travels 40–50 mph, roughly twice the speed of a skater", correct: true },
+      { text: "Cycle the puck behind the net — creates a secure base for a breakout", correct: false },
+    ],
+    explanation: "Pass it out is most efficient: puck moves at 40–50 mph; fastest skaters in the world are in the low 30s mph; youth players are in the mid-20s. Skating it out is roughly HALF the speed of passing."
+  },
+  {
+    category: "Defensive Zone — Breakout",
+    question: "In a High Pressure forecheck scenario with a dumped puck, what should the Green D (puck carrier) do?",
+    options: [
+      { text: "Skate immediately to the corner and make a quick pass to the center outlet", correct: false },
+      { text: "Skate behind the net, protect the puck, draw opponent F1, and reverse the puck to Yellow D at least 10 feet away", correct: true },
+      { text: "Throw the puck hard around the boards so it exits the zone", correct: false },
+      { text: "Hold the puck behind the net and wait for the forecheck to spread out", correct: false },
+    ],
+    explanation: "HP scenario: Green D skates behind the net, draws F1, then reverses the puck along the boards to Yellow D at least 10 feet away (so the forechecker can't reach it). Make a good pass — don't just throw it."
+  },
+  {
+    category: "Defensive Zone — Breakout",
+    question: "In a High Pressure forecheck with a reverse pass, what is the result for the forwards? (The 'double switch' rule)",
+    options: [
+      { text: "Only Blue C switches with Grey W; other forwards hold position", correct: false },
+      { text: "All forwards double switch — Blue C switches out Grey W, and Grey W switches out Orange W", correct: true },
+      { text: "Orange W becomes the primary receiver and all others stay in position", correct: false },
+      { text: "No switches are needed; everyone continues their original route", correct: false },
+    ],
+    explanation: "If the reverse PASS IS MADE: Blue C switches out Grey W (takes a lower route up the half-wall), and Grey W switches out Orange W (who then becomes the center outlet). It's a DOUBLE switch — that's why the playbook warns against back-and-forth D-to-D passes."
+  },
+  {
+    category: "Defensive Zone — Breakout",
+    question: "What is the common mistake players make BEFORE retrieving a puck in the defensive zone, according to the playbook?",
+    options: [
+      { text: "Standing too far from the puck and letting the forecheck retrieve it first", correct: false },
+      { text: "Not looking around BEFORE picking up the puck — head down invites hard hits and removes the chance to deceive the forechecker", correct: true },
+      { text: "Retrieving the puck on the backhand instead of the forehand", correct: false },
+      { text: "Skating too far from the boards when picking up a loose puck", correct: false },
+    ],
+    explanation: "The playbook states: 'We don't look BEFORE we retrieve the puck.' Always scan before picking up — the player attacking you doesn't know what you see, so just LOOKING can create hesitation. If you bury your head, you invite a hard hit."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // PENALTY KILL
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Special Teams — Penalty Kill",
+    question: "On the penalty kill, a player should follow the SKATER, not the pass. Why?",
+    options: [
+      { text: "Because penalty killers are usually faster than the puck", correct: false },
+      { text: "Because following the pass takes you out of your shooting lane and leaves a skater uncovered", correct: true },
+      { text: "Because the pass is usually toward the goal, making it dangerous to intercept", correct: false },
+      { text: "Because the playbook uses a man-to-man system where each PK player owns one opponent", correct: false },
+    ],
+    explanation: "Follow the SKATER, never the pass. If the player you're covering moves along the outside perimeter, stay between him and the puck — this may require switching with another penalty killer."
+  },
+  {
+    category: "Special Teams — Penalty Kill",
+    question: "According to the PK diagram for the PP Umbrella setup, what does the high Black D (penalty killer) cover?",
+    options: [
+      { text: "The crease area in front of the net", correct: false },
+      { text: "Both the shooting lane AND the passing lane (intercept point)", correct: true },
+      { text: "Only the far side defenseman's shooting lane", correct: false },
+      { text: "The player positioned at the half-wall on the strong side", correct: false },
+    ],
+    explanation: "In the diamond PK against an umbrella PP, the high Black D positions in both the shooting lane AND the passing lane — sitting at the INTERCEPT point between the two threats."
+  },
+  {
+    category: "Special Teams — Penalty Kill",
+    question: "What are the THREE scenarios where penalty killers should put physical pressure on the puck carrier?",
+    options: [
+      { text: "When the power play sets up in an umbrella, 1-3-1, or box + 1", correct: false },
+      { text: "When the puck is loose/retrievable; when the puck is wobbling on the stick; when the opponent faces the wall and can't see inside", correct: true },
+      { text: "Whenever the puck leaves the shooting lane, whenever the goalie signals, and on face-offs", correct: false },
+      { text: "Only when the penalty kill is in the final 30 seconds of the advantage", correct: false },
+    ],
+    explanation: "Three pressure scenarios: 1) Puck is LOOSE and retrievable. 2) Puck is WOBBLING on the opponent's stick. 3) Opponent is FACING THE WALL and can't see inside. In all three: go strong, then cover options inside-out at stick-length."
+  },
+  {
+    category: "Special Teams — Penalty Kill",
+    question: "PK Rule #1 for keep-away hockey in the defensive zone is stated TWICE in the playbook for emphasis. What is it?",
+    options: [
+      { text: "NEVER ice the puck when under pressure in the defensive zone", correct: false },
+      { text: "NEVER put the puck on your backhand during PK keep-away", correct: true },
+      { text: "NEVER pass backward toward your own net during PK keep-away", correct: false },
+      { text: "NEVER allow the power play to set up inside the face-off circles", correct: false },
+    ],
+    explanation: "The playbook literally repeats this instruction twice in bold caps: 'DON'T EVER PUT YOUR PUCK ON THE BACKHAND DURING PK KEEP AWAY!!!' Area 1 priority order: A) pass → B) get puck out → C) ice the puck."
+  },
+  {
+    category: "Special Teams — Penalty Kill",
+    question: "On a PK defensive zone face-off, what does the 'Inside F' do immediately after the center wins the draw?",
+    options: [
+      { text: "Positions in the slot to block a potential shot from the point", correct: false },
+      { text: "Sprints to the far side to touch the puck — either clearing it or skating it out", correct: true },
+      { text: "Covers the strong side winger at the half-wall", correct: false },
+      { text: "Stays in front of the net as the second layer of protection", correct: false },
+    ],
+    explanation: "PK defensive zone face-off: Center draws back. Inside D rims the puck hard. Inside F SPRINTS to the far side to touch the puck (get it out or skate it out). Protective D positions farthest away with all net-presence opponents in sight."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // POWER PLAY
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Special Teams — Power Play",
+    question: "On the power play breakout, players are assigned numbers (1–5) rather than positions. Why?",
+    options: [
+      { text: "To confuse the penalty killing team about player roles", correct: false },
+      { text: "Because on a power play you may have 5 defensemen or 5 forwards on the ice", correct: true },
+      { text: "The numbering system matches the zone entry sequence (1 enters first, 5 enters last)", correct: false },
+      { text: "Numbers indicate the priority order for shooting on net", correct: false },
+    ],
+    explanation: "The playbook states players are assigned numbers instead of positions 'because we may have 5 D or 5 F on the ice on a Power Play.' Player 1 = the point/outlet. Player 2 = primary receiver. Player 3 = safety. Players 4 & 5 = wing support."
+  },
+  {
+    category: "Special Teams — Power Play",
+    question: "What does the playbook say about passing the puck even when you have an open skating lane on the power play?",
+    options: [
+      { text: "Take the open lane — individual speed creates better scoring chances than a pass", correct: false },
+      { text: "Pass the puck even if you have an open lane — this makes the penalty kill uneasy about their positions and keeps the advantage working", correct: true },
+      { text: "Only pass if the shooting lane is completely blocked", correct: false },
+      { text: "Hold the puck until you reach the top of the circle, then decide", correct: false },
+    ],
+    explanation: "'Let the puck do the work.' Pass even with an open lane — the longer you hold it, the easier it is for the PK to trap you. The puck moving quickly keeps the penalty kill constantly readjusting."
+  },
+  {
+    category: "Special Teams — Power Play",
+    question: "When should you ATTACK on a power play zone entry vs. SET UP the power play?",
+    options: [
+      { text: "Always attack; setting up wastes time on the advantage", correct: false },
+      { text: "If it's a 2-1 or 3-2 on entry, FINISH THE RUSH; otherwise release pressure and set up", correct: true },
+      { text: "Always set up the power play to make sure all players are in position", correct: false },
+      { text: "Attack only if the penalty killer makes a mistake on the blue line", correct: false },
+    ],
+    explanation: "Playbook: If outmanning on the rush (2-1 or 3-2), FINISH THE RUSH. If it's NOT an odd-man situation on entry, release pressure (pivot, find open ice) and SET IT UP. Don't force plays."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // FORECHECK
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Forecheck",
+    question: "The Bears use two forecheck systems. Under normal circumstances, which do they use and why?",
+    options: [
+      { text: "1-2-2 by default — it minimizes space and protects the lead", correct: false },
+      { text: "2-1-2 by default — it is aggressive, creates physical stress, and forces opponent mistakes", correct: true },
+      { text: "1-3-1 by default — it traps opponents at the blue line most effectively", correct: false },
+      { text: "Left wing lock by default — it is best for youth hockey skill levels", correct: false },
+    ],
+    explanation: "The Bears use a strict 2-1-2 under NORMAL circumstances because it is aggressive, physical, and creates stress that forces mistakes. The 1-2-2 is used only when protecting a lead or slowing the opponent in the neutral zone."
+  },
+  {
+    category: "Forecheck",
+    question: "In the 2-1-2 aggressive forecheck, F1 engages the defenseman by going 'inside out.' What are the two outcomes F1 is aiming for?",
+    options: [
+      { text: "Pin the D against the boards OR force a turnover to F3 at the blue line", correct: false },
+      { text: "Pick the puck off the D's stick OR take the body", correct: true },
+      { text: "Force the D to make a backwards pass OR create an icing call", correct: false },
+      { text: "Win a one-on-one puck battle OR draw a penalty", correct: false },
+    ],
+    explanation: "F1 goes INSIDE OUT on the D and aims to: A) pick the puck off, or B) take the body. The playbook emphasizes F1 should 'make a play' once the puck is retrieved — not just throw it blindly."
+  },
+  {
+    category: "Forecheck",
+    question: "In the 2-1-2 forecheck, what happens when the opponent makes a D-to-D pass? What should our forwards NEVER do?",
+    options: [
+      { text: "Follow the puck to pressure the new puck carrier immediately", correct: false },
+      { text: "NEVER follow the puck — swing out and UP, so F3 can split the ice and angle out toward the new puck carrier", correct: true },
+      { text: "Drop into the neutral zone to protect against a rush", correct: false },
+      { text: "Send both F1 and F2 to double-team the new puck carrier", correct: false },
+    ],
+    explanation: "NEVER follow the puck on a D-to-D pass. Swing out and UP. F3 becomes the new F1, splits the ice between the puck carrier and his D partner, then angles out to engage in the grey box. This gives the best angle and delays the breakout."
+  },
+  {
+    category: "Forecheck",
+    question: "In the 1-2-2 passive forecheck, when the opponent SKATES the puck up (rather than passing), what unique adjustment does F1 make?",
+    options: [
+      { text: "F1 attacks the skating D immediately and more aggressively than on a pass", correct: false },
+      { text: "F1 pulls back through the middle so F2 engages instead, delaying the approach", correct: true },
+      { text: "F1 drops to the blue dotted line and forces the D wide before engaging", correct: false },
+      { text: "F1 stays in position and F3 swings out to engage the skating D", correct: false },
+    ],
+    explanation: "Unique to the Bears 1-2-2: if the D SKATES the puck, F1 is pulled BACK through the middle (because he'd engage too early). F2 takes the longer path and engages instead. The trigger: if the D is still skating past the face-off dot, treat it as skating, not passing."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // DEFENSIVE COMMITMENTS
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Defensive Commitments",
+    question: "Before a defenseman pinches, the playbook requires three conditions to be true. Which of the following is NOT one of them?",
+    options: [
+      { text: "The inside is under control — F3 or the other D has covered the swinging opponent", correct: false },
+      { text: "You can create a 1-on-1 at minimum — you can't be late to the puck", correct: false },
+      { text: "The puck carrier has already committed to the wall", correct: true },
+      { text: "If you don't cut off the pass, you can at least take the body", correct: false },
+    ],
+    explanation: "The three pinch conditions: 1) Inside is covered. 2) Can get there for a 1-on-1 minimum (not late). 3) Can at least take the body even if you miss the pass. The puck carrier's commitment is not listed as a condition."
+  },
+  {
+    category: "Defensive Commitments",
+    question: "When defensemen are rushing the puck and reach the OFFENSIVE ZONE HASHMARKS, what is the decision priority order?",
+    options: [
+      { text: "Shoot → pass to teammate → break for the net → continue around the net", correct: false },
+      { text: "Break for the net → shoot for a rebound → pass safely to a teammate → shoot on net (don't miss)", correct: true },
+      { text: "Pass to a teammate → shoot → dump the puck for a change → skate around the net", correct: false },
+      { text: "Shoot immediately — defensemen should always shoot from the hashmarks", correct: false },
+    ],
+    explanation: "At the offensive zone hashmarks, in priority order: A) Can I break for the net? B) Is there good net pressure for a rebound shot? C) Can I pass safely to a teammate? D) Shoot on net — but DON'T MISS (a missed shot goes to the corner and leaves you defensively exposed)."
+  },
+  {
+    category: "Defensive Commitments",
+    question: "The playbook says 'Hold the Lines' as a defensive concept. What does this mean for forwards defending against a rush?",
+    options: [
+      { text: "Hold your defensive zone position and never pinch under any circumstances", correct: false },
+      { text: "Force opponent lateral movements with the puck on the blue line to stall the rush or create an off-side; control gaps to prevent easy red-line gains", correct: true },
+      { text: "All players hold a flat defensive line at the blue line until the puck is dumped in", correct: false },
+      { text: "Forwards hold the neutral zone while defensemen hold at the blue line", correct: false },
+    ],
+    explanation: "'Hold the Lines' means: A) Force opponent lateral puck movement at the blue line to stall the rush or create an off-side. B) Control gaps so opponents can't easily gain the red line (which gives them a free dump-in option)."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // DUMPING THE PUCK
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Dumping the Puck",
+    question: "What is a 'Dump and Chase' when your teammate has MORE speed than his coverage?",
+    options: [
+      { text: "Dump it deep in the corner so both teams have an equal chance to retrieve it", correct: false },
+      { text: "Dump it hard into the far boards so it bounces out as much as possible for your faster teammate to skate onto and continue the attack", correct: true },
+      { text: "Flip the puck over the defense and dump it behind the net for a wraparound attempt", correct: false },
+      { text: "Dump it to the bench side and immediately change lines", correct: false },
+    ],
+    explanation: "Dump & Chase (more speed): your teammate has the speed advantage, so dump the puck HARD into the far BOARDS so it bounces out as much as possible — letting your teammate skate in and continue the attack toward the net."
+  },
+  {
+    category: "Dumping the Puck",
+    question: "What is 'Dump and Change' and which side of the ice should the puck be dumped to?",
+    options: [
+      { text: "Dump to the far side boards; always use the side away from your bench", correct: false },
+      { text: "Dump to the side CLOSEST to your bench, deep in the corner so the opponent must go as deep as possible to retrieve it", correct: true },
+      { text: "Dump center ice behind the defensemen and immediately substitute all five players", correct: false },
+      { text: "Dump to whichever corner gives your forward the shortest path to retrieve it", correct: false },
+    ],
+    explanation: "Dump and Change = dump in the offensive zone on the side CLOSEST to your bench, with the puck as close to the boards in the corner as possible — forcing the opponent to go deep into their own zone to retrieve it while you change lines."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // BEARS CULTURE & MINDSET
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Bears Culture",
+    question: "The coach describes three levels of competition in the Bears system. What is the THIRD level?",
+    options: [
+      { text: "Intrinsic competition — setting SMART goals for yourself", correct: false },
+      { text: "Competing against your teammates to be best on the team", correct: false },
+      { text: "Competing WITH teammates against opponents — camaraderie, structure, and playing like you never want to lose", correct: true },
+      { text: "Competing in league standings to be the best team in the division", correct: false },
+    ],
+    explanation: "Three levels: 1) Intrinsic (SMART goals for yourself). 2) Against teammates (be best on the team at 3–5 skills). 3) With teammates against opponents — win with a 'we' mentality, believe in the system, and play like you NEVER want to lose."
+  },
+  {
+    category: "Bears Culture",
+    question: "The playbook explains that 'quitting' isn't walking away. What does it actually mean to quit, according to the coach?",
+    options: [
+      { text: "Leaving the ice before the final whistle", correct: false },
+      { text: "Refusing to follow the coach's system and playing independently", correct: false },
+      { text: "Giving in to your own comfort, avoiding confrontation, and ignoring mental training", correct: true },
+      { text: "Missing practices or not showing up for games", correct: false },
+    ],
+    explanation: "The playbook states: 'Quitting isn't walking away from something, quitting is when you give in to your own comfort, avoid confrontation and ignore mental training.' The fix: use nervousness as fuel, focus on what you're doing NOW, and externalize everything."
+  },
+  {
+    category: "Bears Culture",
+    question: "What does the playbook say about the relationship between fundamental success and synergistic success?",
+    options: [
+      { text: "At introductory levels you need to learn WHY and WHEN; at higher levels you need HOW and WHAT", correct: false },
+      { text: "At introductory levels you learn HOW and WHAT; at the Bears level you must learn WHY and WHEN — without this, you can't play like a team", correct: true },
+      { text: "Synergistic success is achieved when every player executes their fundamentals perfectly in isolation", correct: false },
+      { text: "Fundamental and synergistic success are the same thing at higher levels of hockey", correct: false },
+    ],
+    explanation: "Coach's opening message: introductory hockey = HOW to do something and WHAT to do (fundamental success). Bears-level hockey = WHY something is done and WHEN it should be done (synergistic success). 'Without why and when, we will never play like a team!'"
+  },
+  {
+    category: "Bears Culture",
+    question: "The Bears team motto is shown in their logo. What is it?",
+    options: [
+      { text: "We Never Back Down", correct: false },
+      { text: "We Never Walk Alone", correct: true },
+      { text: "We Always Compete", correct: false },
+      { text: "We Play as One", correct: false },
+    ],
+    explanation: "The Bears Hockey logo prominently displays 'WE NEVER WALK ALONE' — reinforcing the team-first culture and camaraderie that runs throughout the playbook."
+  },
+
+  // ══════════════════════════════════════════════════════════
+  // PRACTICE RULES
+  // ══════════════════════════════════════════════════════════
+  {
+    category: "Practice Rules",
+    question: "Practice Rule E says players should 'go to the net' after every shot. What specific habit should you use to confirm you completed net presence?",
+    options: [
+      { text: "Raise your stick in the air to signal you've arrived at the net", correct: false },
+      { text: "Tap the post to identify that you have completed the net presence", correct: true },
+      { text: "Call out 'net' verbally so your linemates know you're in position", correct: false },
+      { text: "Skate through the crease to show full commitment to the scoring area", correct: false },
+    ],
+    explanation: "Practice Rule E: After every shot, always pursue the net. Make it a habit to TAP THE POST to identify that you have completed net presence. This trains your brain not to watch the play from the corner after a rush."
+  },
+  {
+    category: "Practice Rules",
+    question: "According to the playbook, why should players NEVER go straight toward the boards when picking up a puck?",
+    options: [
+      { text: "It leaves the puck exposed on your backhand", correct: false },
+      { text: "Going straight toward the boards risks compressing your spine — a HEADS UP posture is required, not ducking", correct: true },
+      { text: "It makes it easier for the opponent to take the puck cleanly", correct: false },
+      { text: "It takes you too far from the passing lanes needed for a quick breakout", correct: false },
+    ],
+    explanation: "Practice Rule J: Never go straight toward the boards — if you hit straight, you could compress your spine. Always approach at an angle. And in any compromised situation: HEADS UP, DON'T DUCK. Spraining a neck muscle is recoverable; compressing your spine is not."
+  },
+  {
+    category: "Practice Rules",
+    question: "The playbook's Hockey Essentials chain states thoughts → words → actions → habits → ?",
+    options: [
+      { text: "Success", correct: false },
+      { text: "Character, which realizes your destiny", correct: true },
+      { text: "Winning", correct: false },
+      { text: "Team chemistry", correct: false },
+    ],
+    explanation: "From the playbook's Hockey Essentials: 'Thoughts become words → Words become actions → Actions become habits → Habits become character → Character realizes your destiny.'"
+  },
+];
+
+// ─── QUIZ STATE ───────────────────────────────────────────────────────────────
+let questions = [];
+let current = 0;
+let score = 0;
+let selectedIdx = null;
+let submitted = false;
+let categoryStats = {};
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+(function init() {
+  // Populate topics grid
+  const cats = [...new Set(QUESTIONS.map(q => q.category))];
+  const grid = document.getElementById("topics-grid");
+  cats.forEach(c => {
+    const pill = document.createElement("div");
+    pill.className = "topic-pill";
+    const count = QUESTIONS.filter(q => q.category === c).length;
+    pill.textContent = `${c} (${count})`;
+    grid.appendChild(pill);
+  });
+  document.getElementById("total-display").textContent = QUESTIONS.length;
+})();
+
+function startQuiz() {
+  questions = shuffle([...QUESTIONS]);
+  current = 0;
+  score = 0;
+  selectedIdx = null;
+  submitted = false;
+  categoryStats = {};
+  questions.forEach(q => {
+    if (!categoryStats[q.category]) categoryStats[q.category] = { correct: 0, total: 0 };
+    categoryStats[q.category].total++;
+  });
+
+  document.getElementById("start-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("quiz-screen").style.display = "block";
+  document.getElementById("score-display").textContent = "0";
+  document.getElementById("total-display").textContent = questions.length;
+
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  selectedIdx = null;
+  submitted = false;
+
+  // progress
+  const pct = Math.round((current / questions.length) * 100);
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("q-label").textContent = `Question ${current + 1}`;
+  document.getElementById("q-of").textContent = `of ${questions.length}`;
+
+  document.getElementById("q-category").textContent = q.category;
+  document.getElementById("q-text").textContent = q.question;
+
+  // diagram
+  const dArea = document.getElementById("diagram-area");
+  if (q.diagram) {
+    dArea.innerHTML = `<div class="diagram-block"><div class="diagram-title">📊 Reference Diagram</div>${q.diagram}</div>`;
+  } else {
+    dArea.innerHTML = "";
+  }
+
+  // shuffle options
+  const opts = shuffle(q.options.map((o, i) => ({ ...o, origIdx: i })));
+  const list = document.getElementById("options-list");
+  list.innerHTML = "";
+  const letters = ["A", "B", "C", "D", "E"];
+  opts.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.innerHTML = `<span class="opt-letter">${letters[idx]}</span><span>${opt.text}</span>`;
+    btn.dataset.correct = opt.correct;
+    btn.onclick = () => selectOption(idx);
+    list.appendChild(btn);
+  });
+
+  // reset UI
+  const fb = document.getElementById("feedback");
+  fb.className = "feedback";
+  fb.innerHTML = "";
+  document.getElementById("btn-submit").disabled = true;
+  document.getElementById("btn-submit").style.display = "";
+  document.getElementById("btn-next").style.display = "none";
+
+  // re-animate card
+  const card = document.getElementById("question-card");
+  card.style.animation = "none";
+  void card.offsetWidth;
+  card.style.animation = "slideIn 0.3s ease";
+}
+
+function selectOption(idx) {
+  if (submitted) return;
+  selectedIdx = idx;
+  const btns = document.querySelectorAll(".option-btn");
+  btns.forEach((b, i) => {
+    b.classList.toggle("selected", i === idx);
+  });
+  document.getElementById("btn-submit").disabled = false;
+}
+
+function submitAnswer() {
+  if (selectedIdx === null || submitted) return;
+  submitted = true;
+
+  const btns = document.querySelectorAll(".option-btn");
+  let isCorrect = false;
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    const correct = btn.dataset.correct === "true";
+    if (i === selectedIdx) {
+      btn.classList.remove("selected");
+      if (correct) { btn.classList.add("correct"); isCorrect = true; }
+      else           btn.classList.add("wrong");
+    } else if (correct) {
+      btn.classList.add("revealed-correct");
+    }
+  });
+
+  const q = questions[current];
+  const fb = document.getElementById("feedback");
+  if (isCorrect) {
+    score++;
+    categoryStats[q.category].correct++;
+    document.getElementById("score-display").textContent = score;
+    // flash scoreboard
+    const sb = document.getElementById("scoreboard");
+    sb.classList.remove("flash");
+    void sb.offsetWidth;
+    sb.classList.add("flash");
+    fb.className = "feedback correct";
+    fb.innerHTML = `<strong>✓ Correct!</strong> ${q.explanation}`;
+  } else {
+    fb.className = "feedback wrong";
+    fb.innerHTML = `<strong>✗ Incorrect.</strong> ${q.explanation}`;
+  }
+
+  document.getElementById("btn-submit").style.display = "none";
+  document.getElementById("btn-next").style.display = "inline-block";
+  document.getElementById("btn-next").textContent =
+    current + 1 < questions.length ? "Next Question →" : "See Results";
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  document.getElementById("quiz-screen").style.display = "none";
+  const rs = document.getElementById("results-screen");
+  rs.style.display = "block";
+
+  const pct = Math.round((score / questions.length) * 100);
+  document.getElementById("results-score").textContent = score;
+  document.getElementById("results-denom").textContent = `out of ${questions.length} questions — ${pct}%`;
+
+  let title, grade;
+  if (pct === 100) { title = "Perfect Score!"; grade = `🏆 <span>Elite Hockey IQ — You're ready for anything.</span>`; }
+  else if (pct >= 85) { title = "Outstanding!"; grade = `🥇 <span>Excellent playbook knowledge. Sharp.</span>`; }
+  else if (pct >= 70) { title = "Solid Work!"; grade = `🥈 <span>Good foundation. Review the sections you missed.</span>`; }
+  else if (pct >= 50) { title = "Keep Grinding"; grade = `🏒 <span>Re-read the playbook and try again.</span>`; }
+  else { title = "Back to the Playbook"; grade = `📖 <span>Study hard and come back stronger.</span>`; }
+
+  document.getElementById("results-title").textContent = title;
+  document.getElementById("results-grade").innerHTML = grade;
+
+  // breakdown
+  const bd = document.getElementById("breakdown");
+  bd.innerHTML = `<div class="breakdown-title">Score by Category</div>`;
+  Object.entries(categoryStats)
+    .sort((a, b) => b[1].total - a[1].total)
+    .forEach(([cat, s]) => {
+      const row = document.createElement("div");
+      row.className = "breakdown-row";
+      const perfect = s.correct === s.total;
+      row.innerHTML = `<span class="breakdown-cat">${cat}</span>
+        <span class="breakdown-score${perfect ? " perfect" : ""}">${s.correct}/${s.total}</span>`;
+      bd.appendChild(row);
+    });
+}
+
+function restartQuiz() {
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("start-screen").style.display = "block";
+}
+</script>
+</body>
+</html>
